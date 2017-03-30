@@ -22,6 +22,7 @@ Install
 =======
 
 Please check the file 'INSTALL' in the distribution.
+Note, this branch will eventually be compatible with Python 3.5 and above.
 
 Usage of MACS2
 ==============
