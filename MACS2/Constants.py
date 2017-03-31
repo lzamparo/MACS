@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 MACS_VERSION = "2.1.1.20160309"
 #MACSDIFF_VERSION = "1.0.4 20110212 (tag:alpha)"
 FILTERDUP_VERSION = "1.0.0 20140616"

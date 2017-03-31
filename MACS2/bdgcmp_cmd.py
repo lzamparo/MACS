@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 # Time-stamp: <2016-02-12 00:11:11 Tao Liu>
 
 import sys

@@ -25,7 +25,7 @@ from collections import Counter
 from copy import copy
 
 from operator import itemgetter
-import cPickle
+import pickle
 from tempfile import mkstemp
 import os
 
@@ -466,8 +466,8 @@ cdef class CallerFromAlignments:
         # values.
         if self.pileup_data_files.has_key( chrom ):
             try:
-                f = file( self.pileup_data_files[ chrom ],"rb" )
-                self.chr_pos_treat_ctrl = cPickle.load( f )
+                f = open( self.pileup_data_files[ chrom ],"rb" )
+                self.chr_pos_treat_ctrl = pickle.load( f )
                 f.close()
                 return
             except:
@@ -519,8 +519,8 @@ cdef class CallerFromAlignments:
 
         # save data to temporary file
         try:
-            f = file(self.pileup_data_files[ chrom ],"wb")
-            cPickle.dump( self.chr_pos_treat_ctrl, f , protocol=2 )
+            f = open(self.pileup_data_files[ chrom ],"wb")
+            pickle.dump( self.chr_pos_treat_ctrl, f , protocol=2 )
             f.close()
         except:
             # fail to write then remove the key in pileup_data_files
@@ -854,7 +854,7 @@ cdef class CallerFromAlignments:
         logging.debug( "access pq hash for %d times" % nhcal )
 
         # write pvalue and total length of predicted peaks
-        fhd = file( self.cutoff_analysis_filename, "w" )
+        fhd = open( self.cutoff_analysis_filename, "w" )
         fhd.write( "pscore\tqscore\tnpeaks\tlpeaks\tavelpeak\n" )
         x = []
         y = []

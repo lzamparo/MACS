@@ -18,6 +18,7 @@ the distribution).
 # python modules
 # ------------------------------------
 import io
+from io import IOBase
 
 from MACS2.IO.BedGraph import bedGraphTrackI,bedRegionTrackI
 
@@ -162,9 +163,10 @@ cdef class genericBedIO:
         """f must be a filename or a file handler.
         
         """
+
         if type(f) == str:
             self.fhd = open(f,"r")
-        elif type(f) == file:
+        elif isinstance(f, IOBase):
             self.fhd = f
         else:
             raise Exception("f must be a filename or a file handler.")

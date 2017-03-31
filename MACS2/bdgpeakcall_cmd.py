@@ -13,6 +13,7 @@ the distribution).
 @author:  Tao Liu
 @contact: taoliu@jimmy.harvard.edu
 """
+from __future__ import absolute_import
 
 # ------------------------------------
 # python modules

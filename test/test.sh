@@ -6,6 +6,43 @@ CTRL=CTCF_Control_200K.bed.gz
 CHIPPE=CTCF_PE_ChIP_chr22.bam
 CTRLPE=CTCF_PE_CTRL_chr22.bam
 
+# function to make subdirectories for tests
+make_dirs(){
+	mkdir -p run_callpeak_narrow
+	mkdir -p run_callpeak_broad
+	mkdir -p run_callpeak_pe_narrow
+	mkdir -p run_callpeak_pe_broad
+	mkdir -p run_bdgpeakcall
+	mkdir -p run_bdgbroadcall
+	mkdir -p run_callpeak_narrow_revert
+	mkdir -p run_filterdup
+	mkdir -p run_predictd
+	mkdir -p run_pileup
+	mkdir -p run_randsample
+	mkdir -p run_refinepeak
+}
+
+clean_up_dirs(){
+	rm -rf run_callpeak_narrow
+	rm -rf run_callpeak_broad
+	rm -rf run_callpeak_pe_narrow
+	rm -rf run_callpeak_pe_broad
+	rm -rf run_bdgpeakcall
+	rm -rf run_bdgbroadcall
+	rm -rf run_callpeak_narrow_revert
+	rm -rf run_filterdup
+	rm -rf run_predictd
+	rm -rf run_pileup
+	rm -rf run_randsample
+	rm -rf run_refinepeak
+}
+
+export -f make_dirs
+export -f clean_up_dirs
+
+# make output dirs
+make_dirs
+
 # callpeak
 echo "callpeak"
 
@@ -83,3 +120,5 @@ macs2 refinepeak -b run_callpeak_narrow/run_callpeak_narrow_peaks.narrowPeak -i 
 
 macs2 refinepeak -b run_callpeak_narrow/run_callpeak_narrow_peaks.narrowPeak -i $CHIP --outdir run_refinepeak -o run_refinepeak_w_ofile.bed &> run_refinepeak/run_refinepeak_w_ofile.log
 
+# tear down output dirs 
+clean_up_dirs

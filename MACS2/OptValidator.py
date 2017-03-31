@@ -13,6 +13,7 @@ the distribution).
 @author:  Tao Liu
 @contact: taoliu@jimmy.harvard.edu
 """
+from __future__ import absolute_import
 
 # ------------------------------------
 # python modules
@@ -52,7 +53,7 @@ def opt_validate ( options ):
             options.gsize = float(options.gsize)
         except:
             logging.error("Error when interpreting --gsize option: %s" % options.gsize)
-            logging.error("Available shortcuts of effective genome sizes are %s" % ",".join(efgsize.keys()))
+            logging.error("Available shortcuts of effective genome sizes are %s" % ",".join(list(efgsize.keys())))
             sys.exit(1)
 
     # format
@@ -350,7 +351,7 @@ def opt_validate_filterdup ( options ):
             options.gsize = float(options.gsize)
         except:
             logging.error("Error when interpreting --gsize option: %s" % options.gsize)
-            logging.error("Available shortcuts of effective genome sizes are %s" % ",".join(efgsize.keys()))
+            logging.error("Available shortcuts of effective genome sizes are %s" % ",".join(list(efgsize.keys())))
             sys.exit(1)
 
     # format
@@ -524,7 +525,7 @@ def opt_validate_predictd ( options ):
             options.gsize = float(options.gsize)
         except:
             logging.error("Error when interpreting --gsize option: %s" % options.gsize)
-            logging.error("Available shortcuts of effective genome sizes are %s" % ",".join(efgsize.keys()))
+            logging.error("Available shortcuts of effective genome sizes are %s" % ",".join(list(efgsize.keys())))
             sys.exit(1)
 
     # format

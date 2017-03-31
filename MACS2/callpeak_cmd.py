@@ -14,6 +14,7 @@ with the distribution).
 @author:  Yong Zhang, Tao Liu
 @contact: taoliu@jimmy.harvard.edu
 """
+from __future__ import absolute_import
 
 # ------------------------------------
 # python modules
@@ -34,6 +35,7 @@ from MACS2.Prob import binomial_cdf_inv
 from MACS2.PeakModel import PeakModel,NotEnoughPairsException
 from MACS2.PeakDetect import PeakDetect
 from MACS2.Constants import *
+from six.moves import map
 # ------------------------------------
 # Main function
 # ------------------------------------

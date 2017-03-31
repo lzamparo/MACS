@@ -18,6 +18,7 @@ the distribution).
 @author:  Tao Liu
 @contact: taoliu@jimmy.harvard.edu
 """
+from __future__ import absolute_import
 
 import os
 import sys
@@ -40,8 +41,8 @@ except:
 
 
 def main():
-    if float(sys.version[:3])<2.7 or float(sys.version[:3])>=2.8:
-        sys.stderr.write("CRITICAL: Python version must be 2.7!\n")
+    if float(sys.version[:3])<3.3:
+        sys.stderr.write("CRITICAL: Python version must be 3.4 or later!\n")
         sys.exit(1)
 
     # I intend to use -Ofast, however if gcc version < 4.6, this option is unavailable so...

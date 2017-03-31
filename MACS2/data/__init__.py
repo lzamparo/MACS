@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 available_c = ['0.05','0.01']
 row_size = 1001
 table_size = row_size*row_size
@@ -24,7 +25,7 @@ class PreCompiledGFold:
         c = str(c)
         if c in available_c:
             self.gfolds = pyarray('f',[])
-            self.gfolds.fromfile(file(os.path.join(path,'g'+str(c)+'.dat'),'rb'),table_size)
+            self.gfolds.fromfile(open(os.path.join(path,'g'+str(c)+'.dat'),'rb'),table_size)
         else:
             raise InvalidCError(c)
     
