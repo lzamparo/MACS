@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 #!/usr/bin/env python
 # Time-stamp: <2012-02-26 19:33:56 Tao Liu>
 
@@ -23,22 +25,22 @@ class Test_MCMCPoissonPosteriorRatio(unittest.TestCase):
         rand.seed([10])
         P = MCMCPoissonPosteriorRatio(15000,5000,self.p1[0],self.p1[1])
         P = sorted(P)
-        print self.p1[0],self.p1[1],P[100],mean(P),P[-100]
+        print(self.p1[0],self.p1[1],P[100],mean(P),P[-100])
 
         rand.seed([10])
         P = MCMCPoissonPosteriorRatio(15000,5000,self.p2[0],self.p2[1])
         P = sorted(P)
-        print self.p2[0],self.p2[1],P[100],mean(P),P[-100]
+        print(self.p2[0],self.p2[1],P[100],mean(P),P[-100])
 
         rand.seed([10])
         P = MCMCPoissonPosteriorRatio(15000,5000,self.p3[0],self.p3[1])
         P = sorted(P)
-        print self.p3[0],self.p3[1],P[100],mean(P),P[-100]
+        print(self.p3[0],self.p3[1],P[100],mean(P),P[-100])
 
         rand.seed([10])
         P = MCMCPoissonPosteriorRatio(15000,5000,self.p4[0],self.p4[1])
         P = sorted(P)
-        print self.p4[0],self.p4[1],P[100],mean(P),P[-100]        
+        print(self.p4[0],self.p4[1],P[100],mean(P),P[-100])        
 
         #self.assertTrue( abs(result - expect) < 1e-5*result)
 

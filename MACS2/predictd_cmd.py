@@ -37,7 +37,7 @@ from six.moves import map
 # ------------------------------------
 def run( o_options ):
     """The Main function/pipeline for duplication filter.
-    
+
     """
     # Parse options...
     options = opt_validate( o_options )
@@ -48,13 +48,13 @@ def run( o_options ):
     error = options.error
     #0 output arguments
     assert options.format != 'BAMPE', "Pair-end data with BAMPE option doesn't work with predictd command. You can pretend your data to be single-end with -f BAM. Please try again!"
-    
+
     #1 Read tag files
     info("# read alignment files...")
     treat = load_tag_files_options  (options)
-    
+
     info("# tag size = %d", options.tsize)
-    
+
     t0 = treat.total
     info("# total tags in alignment file: %d", t0)
 

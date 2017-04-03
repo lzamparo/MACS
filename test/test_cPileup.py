@@ -14,6 +14,7 @@ the distribution).
 @author:  Tao Liu
 @contact: taoliu@jimmy.harvard.edu
 """
+from __future__ import absolute_import
 
 
 import os
@@ -23,6 +24,7 @@ import unittest
 from math import log10
 from MACS2.cPileup import *
 from MACS2.IO.cFixWidthTrack import FWTrackIII
+from six.moves import range
 
 # ------------------------------------
 # Main function
@@ -75,7 +77,7 @@ class Test_pileup(unittest.TestCase):
             pnext = iter(p).next
             vnext = iter(v).next
             pre = 0
-            for i in xrange(len(p)):
+            for i in range(len(p)):
                 pos = pnext()
                 value = vnext()
                 self.result.append( (pre,pos,value) )
@@ -100,7 +102,7 @@ class Test_pileup(unittest.TestCase):
             pnext = iter(p).next
             vnext = iter(v).next
             pre = 0
-            for i in xrange(len(p)):
+            for i in range(len(p)):
                 pos = pnext()
                 value = vnext()
                 self.result.append( (pre,pos,value) )

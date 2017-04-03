@@ -86,7 +86,7 @@ def run( options ):
         depth2 = 1.0
 
     twoconditionscore = ScoreTrack.TwoConditionScores( t1btrack,
-                                                        c1btrack,
+                                                       c1btrack,
                                                         t2btrack,
                                                         c2btrack,
                                                         depth1,
@@ -111,7 +111,7 @@ def run( options ):
                         options.oprefix+"_cond2_",
                         options.oprefix+"_common_",
                         ]
-    
+
     nf = open( ofiles[ 0 ], 'w' )
     cat1.write_to_bed(nf, name_prefix=name_prefix[ 0 ], name="condition 1", description="unique regions in condition 1", score_column="score")
 

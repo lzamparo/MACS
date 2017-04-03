@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 #!/usr/bin/env python
 # Time-stamp: <2012-03-10 20:55:11 Tao Liu>
 
@@ -6,6 +7,7 @@ import sys
 import unittest
 
 from MACS2.IO.cBedGraph import *
+from six.moves import range
 
 class Test_bedGraphTrackI_add_loc(unittest.TestCase):
 
@@ -64,7 +66,7 @@ class Test_bedGraphTrackI_overlie(unittest.TestCase):
         chrom = "chrY"
         (p,v) = bdgb.get_data_by_chr(chrom)
         pre = 0
-        for i in xrange(len(p)):
+        for i in range(len(p)):
             pos = p[i]
             value = v[i]
             self.assertEqual_float( self.test_overlie_result[i][1], pre )

@@ -14,6 +14,7 @@ the distribution).
 @author:  Tao Liu
 @contact: taoliu@jimmy.harvard.edu
 """
+from __future__ import absolute_import
 
 
 import os
@@ -22,6 +23,7 @@ import unittest
 from random import randint
 
 from MACS2.cArray import IntArray
+from six.moves import range
 
 # ------------------------------------
 # Main function
@@ -42,7 +44,7 @@ class Test_cArray(unittest.TestCase):
             self.a.put(randint(0,1000000))
         self.a.sort()
         ai = iter(self.a)
-        ai.next()
+        next(ai)
 
 if __name__ == '__main__':
     unittest.main()

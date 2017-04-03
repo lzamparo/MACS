@@ -91,13 +91,13 @@ class BinKeeperI:
 
     def p2bin (self, p ):
         """Return the bin index for a position.
-        
+
         """
         return p/self.binsize
 
     def p2cage (self, p):
         """Return the bin containing the position.
-        
+
         """
         return self.cage[p/self.binsize]
 
@@ -214,19 +214,19 @@ class BinKeeperII:
 
     def p2bin (self, p ):
         """Given a position, return the bin index for a position.
-        
+
         """
         return p/self.binsize
 
     def p2cage (self, p):
         """Given a position, return the bin containing the position.
-        
+
         """
         return self.cage[p/self.binsize]
 
     def pp2cages (self, p1, p2):
         """Given an interval, return the bins containing this interval.
-        
+
         """
         assert p1<=p2
         bin1 = self.p2bin(p1)
@@ -302,13 +302,13 @@ class BinKeeperII:
         print(output_value_list)
 
         # check if the bin (p1_in_cages-1) covers p1
-        
+
         if p1_in_cages-1 >= 0 and p1 < self.cage[p1_in_cages-1][1]:
             # add this interval
             output_startpos_list = array(BYTE4,[p1,])+output_startpos_list
             output_endpos_list = array(BYTE4,[self.cage[p1_in_cages-1][1],])+output_endpos_list
             output_value_list = array(BYTE4,[self.cage[p1_in_cages-1][2],])+output_value_list
-                
+
 
         # check if the bin (p2_in_cages+1) covers p2
         #print p2_in_cages+1,len(self.cage)

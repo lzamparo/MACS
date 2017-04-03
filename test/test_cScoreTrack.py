@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 #!/usr/bin/env python
 # Time-stamp: <2012-06-09 16:44:48 Tao Liu>
 
@@ -91,27 +92,27 @@ chrY	161	210	50	186	20.00	7.09	3.50	-1.00	MACS_peak_2
 
         s1.change_score_method( ord('p') )
         r = s1.get_data_by_chr("chrY")
-        self.assertListEqual( map(lambda x:round(x,2),list(r[3])), self.p_result )
+        self.assertListEqual( [round(x,2) for x in list(r[3])], self.p_result )
 
         s1.change_score_method( ord('q') )
         r = s1.get_data_by_chr("chrY")
-        self.assertListEqual( map(lambda x:round(x,2),list(r[3])), self.q_result )
+        self.assertListEqual( [round(x,2) for x in list(r[3])], self.q_result )
         
         s1.change_score_method( ord('l') )
         r = s1.get_data_by_chr("chrY")
-        self.assertListEqual( map(lambda x:round(x,2),list(r[3])), self.l_result )
+        self.assertListEqual( [round(x,2) for x in list(r[3])], self.l_result )
 
         s1.change_score_method( ord('f') )
         r = s1.get_data_by_chr("chrY")
-        self.assertListEqual( map(lambda x:round(x,2),list(r[3])), self.f_result )
+        self.assertListEqual( [round(x,2) for x in list(r[3])], self.f_result )
 
         s1.change_score_method( ord('d') )
         r = s1.get_data_by_chr("chrY")
-        self.assertListEqual( map(lambda x:round(x,2),list(r[3])), self.d_result )
+        self.assertListEqual( [round(x,2) for x in list(r[3])], self.d_result )
 
         s1.change_score_method( ord('m') )
         r = s1.get_data_by_chr("chrY")
-        self.assertListEqual( map(lambda x:round(x,2),list(r[3])), self.m_result )
+        self.assertListEqual( [round(x,2) for x in list(r[3])], self.m_result )
 
     def test_normalize(self):
         s1 = scoreTrackII( self.treat_edm, self.ctrl_edm )

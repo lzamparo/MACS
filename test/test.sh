@@ -121,4 +121,4 @@ macs2 refinepeak -b run_callpeak_narrow/run_callpeak_narrow_peaks.narrowPeak -i 
 macs2 refinepeak -b run_callpeak_narrow/run_callpeak_narrow_peaks.narrowPeak -i $CHIP --outdir run_refinepeak -o run_refinepeak_w_ofile.bed &> run_refinepeak/run_refinepeak_w_ofile.log
 
 # tear down output dirs 
-clean_up_dirs
+#clean_up_dirs

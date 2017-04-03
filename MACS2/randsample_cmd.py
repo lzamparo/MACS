@@ -43,11 +43,11 @@ def run( options0 ):
         outfhd = open( os.path.join( options.outdir, options.outputfile ), "w" )
     else:
         outfhd = sys.stdout
-    
+
     #1 Read tag files
     info("read tag files...")
     fwtrack = load_tag_files_options (options)
-    
+
     info("tag size = %d" % options.tsize)
     fwtrack.fw = options.tsize
 

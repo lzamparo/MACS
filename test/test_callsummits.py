@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 #!/usr/bin/env python
 # Time-stamp: <2013-10-18 16:27:40 Tao Liu>
 
@@ -10,6 +11,7 @@ import numpy as np
 from MACS2.IO.cPeakIO import PeakIO
 from math import factorial
 from random import normalvariate
+from six.moves import range
 
 class Test_CallSummits ( unittest.TestCase ):
     
@@ -204,13 +206,13 @@ def savitzky_golay(y, window_size, order=2, deriv=0, rate=1):
     try:
         window_size = np.abs(np.int(window_size))
         order = np.abs(np.int(order))
-    except ValueError, msg:
+    except ValueError as msg:
         raise ValueError("window_size and order have to be of type int")
     if window_size % 2 != 1 or window_size < 1:
         raise TypeError("window_size size must be a positive odd number")
     if window_size < order + 2:
         raise TypeError("window_size is too small for the polynomials order")
-    order_range = range(order+1)
+    order_range = list(range(order+1))
     half_window = (window_size -1) // 2
     # precompute coefficients
     b = np.mat([[k**i for i in order_range] for k in range(-half_window, half_window+1)])

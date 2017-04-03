@@ -57,7 +57,7 @@ def main():
                    Extension("MACS2.hashtable", ["MACS2/hashtable.c"], include_dirs=["MACS2/",numpy_get_include()], extra_compile_args=extra_c_args),
                    Extension("MACS2.Statistics", ["MACS2/Statistics.c", "MACS2/cStatistics.c"], libraries=["m"], include_dirs=["MACS2/",numpy_get_include()], extra_compile_args=extra_c_args),
                    ]
-    
+
     setup(name="MACS2",
           version="2.1.1.20160309",
           description="Model Based Analysis for ChIP-Seq data",

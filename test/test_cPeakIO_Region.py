@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 #!/usr/bin/env python
 # Time-stamp: <2012-04-29 17:27:36 Tao Liu>
 

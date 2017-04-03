@@ -38,7 +38,7 @@ from MACS2.Constants import *
 # ------------------------------------
 def run( o_options ):
     """The Main function/pipeline for duplication filter.
-    
+
     """
     # Parse options...
     options = opt_validate( o_options )
@@ -62,17 +62,17 @@ def run( o_options ):
         peaks.add( fs[0], int(fs[1]), int(fs[2]), name=fs[3] )
 
     peaks.sort()
-    
+
     #1 Read tag files
     info("read tag files...")
     fwtrack = load_tag_files_options (options)
-    
+
     retval = fwtrack.compute_region_tags_from_peaks( peaks, find_summit, window_size = options.windowsize, cutoff = options.cutoff )
     outputfile.write( "\n".join( map(lambda x: "%s\t%d\t%d\t%s\t%.2f" % x , retval) ) )
     info("Done!")
 
 def find_summit(chrom, plus, minus, peak_start, peak_end, name = "peak", window_size=100, cutoff = 5):
-    
+
     left_sum = lambda strand, pos, width = window_size: sum([strand[x] for x in strand if x <= pos and x >= pos - width])
     right_sum = lambda strand, pos, width = window_size: sum([strand[x] for x in strand if x >= pos and x <= pos + width])
     left_forward = lambda strand, pos: strand.get(pos,0) - strand.get(pos-window_size, 0)
@@ -120,7 +120,7 @@ def find_summit(chrom, plus, minus, peak_start, peak_end, name = "peak", window_
 #                             ifilterfalse(pred, ialign1))),
 #                 Counter(map(crick_5_end,
 #                             ifilter(pred, ialign2))))
-    
+
 #     left_sum = lambda strand, pos, width = window_size: sum([strand[x] for x in strand if x <= pos and x >= pos - width])
 #     right_sum = lambda strand, pos, width = window_size: sum([strand[x] for x in strand if x >= pos and x <= pos + width])
 #     left_forward = lambda strand, pos: strand.get(pos,0) - strand.get(pos-window_size, 0)
@@ -134,7 +134,7 @@ def find_summit(chrom, plus, minus, peak_start, peak_end, name = "peak", window_
 #             chrom = i[0]
 #             peak_start = int(i[1])
 #             peak_end = int(i[2])
-            
+
 #             watson, crick = count_by_strand(samfile.fetch(chrom, peak_start-window_size, peak_end+window_size))
 #             watson_left = left_sum(watson, peak_start)
 #             crick_left = left_sum(crick, peak_start)
