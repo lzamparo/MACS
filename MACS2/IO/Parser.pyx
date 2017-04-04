@@ -66,6 +66,7 @@ cpdef guess_parser ( fhd, long buffer_size = 100000 ):
                   "BOWTIE",
                   )
 
+    print("DEBUG: guess_parser; is the fhd just a string?? ", fhd)
     for f in order_list:
         if f == 'BED':
             p = BEDParser( fhd, buffer_size = buffer_size )
@@ -165,13 +166,22 @@ cdef class GenericParser:
         
         if self.tag_size != -1:
             # if we have already calculated tag size (!= -1),  return it.
+            print("DEBUG: GenericParser returning tsize ", self.tag_size)
             return self.tag_size
         
         # try 10k times or retrieve 10 successfule alignments
         while n < 10 and m < 10000:
             m += 1
+            print("DEBUG: GenericParser sampling reads: ", m)
             thisline = self.fhd.readline()
+            try:
+                thisline = thisline.decode()
+                print("DEBUG: decoded line as ", thisline)
+            except AttributeError:
+                print("DEBUG: Decoded regular string not bytestring, mkay.")
+                pass
             this_taglength = self.__tlen_parse_line( thisline )
+            print("DEBUG: read tag length of ", this_taglength)
             if this_taglength > 0:
                 # this_taglength == 0 means this line doesn't contain
                 # successful alignment.
@@ -179,7 +189,8 @@ cdef class GenericParser:
                 n += 1
         # done
         self.fhd.seek( 0 )
-        self.tag_size = s/n
+        self.tag_size = s // n
+        print("DEBUG: GenericParser estimate of tag size is ", s // n)
         return self.tag_size
 
     cdef __tlen_parse_line ( self, str thisline ):
@@ -296,15 +307,26 @@ cdef class BEDParser( GenericParser ):
         """Parse 5' and 3' position, then calculate frag length.
 
         """
-        thisline = thisline.rstrip()
-        if not thisline \
-           or thisline[ :5 ] == "track" \
-           or thisline[ :7 ] == "browser"\
-           or thisline[ 0 ] == "#":
+        print("DEBUG: Parsing line in BEDParser, looks like this: ", thisline)
+        try:
+            thisline = thisline.rstrip()
+            thisfields = thisline.split( '\t' )
+        except:  
+            print("DEBUG: could not split ", thisline)
             return 0
-
-        thisfields = thisline.split( '\t' )
-        return atoi( thisfields[ 2 ] )-atoi( thisfields[ 1 ] )
+        
+        try:
+            diff = atoi( thisfields[ 2 ] )-atoi( thisfields[ 1 ] )
+        except:
+            diff = 0
+        
+        #if not thisline \
+           #or thisline[ :5 ] == "track" \
+           #or thisline[ :7 ] == "browser"\
+           #or thisline[ 0 ] == "#":
+            #print("DEBUG: Why the heck am I triggering this?? THIS IS GARBAGE.")
+            #return 0
+        return diff
     
     cdef __fw_parse_line ( self, str thisline ):
         #cdef list thisfields
@@ -464,6 +486,7 @@ cdef class ELANDResultParser( GenericParser ):
         """Parse tag sequence, then tag length.
 
         """
+        print("DEBUG: ELAND result parser parse_line")
         thisline = thisline.rstrip()
         if not thisline: return 0
         thisfields = thisline.split( '\t' )
@@ -529,6 +552,7 @@ cdef class ELANDMultiParser( GenericParser ):
         """Parse tag sequence, then tag length.
 
         """
+        print("DEBUG: ELANDMulti parser parse_line")
         thisline = thisline.rstrip()
         if not thisline: return 0
         thisfields = thisline.split( '\t' )
@@ -589,6 +613,7 @@ cdef class ELANDExportParser( GenericParser ):
         """Parse tag sequence, then tag length.
 
         """
+        print("DEBUG: ELANDExport parser parse_line ")
         thisline = thisline.rstrip()
         if not thisline: return 0
         thisfields = thisline.split( '\t' )
@@ -661,6 +686,7 @@ cdef class SAMParser( GenericParser ):
         """Parse tag sequence, then tag length.
 
         """
+        print("DEBUG: SAM parser parse_line")
         cdef:
             list thisfields
             int bwflag
@@ -1180,12 +1206,13 @@ cdef class BowtieParser( GenericParser ):
     program.
 
     """
+
     cdef __tlen_parse_line ( self, str thisline ):
         """Parse tag sequence, then tag length.
 
         """
         cdef list thisfields
-        
+        print("DEBUG: bowtieParser parse_line")
         thisline = thisline.rstrip()
         if not thisline: return ( "", -1, -1 )
         if thisline[ 0 ]=="#": return ( "", -1 , -1 ) # comment line is skipped

@@ -58,6 +58,14 @@ def opt_validate ( options ):
 
     # format
     options.gzip_flag = False           # if the input is gzip file
+    
+    # DEBUG: what's in the options?
+    my_options = [a for a in dir(options) if not a.startswith('__')]
+    for opt in my_options:
+        print("DEBUG: found option ", opt, " with value ", getattr(options, opt))
+
+    options.format = options.format.upper()
+    options.format = options.format.strip('.gz').strip()    
 
     options.format = options.format.upper()
     if options.format == "ELAND":
