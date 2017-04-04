@@ -316,7 +316,8 @@ cdef class BEDParser( GenericParser ):
             return 0
         
         try:
-            diff = atoi( thisfields[ 2 ] )-atoi( thisfields[ 1 ] )
+            diff = int( thisfields[ 2 ] ) - int( thisfields[ 1 ] )
+            print("DEBUG: split the line, got ", diff, " sized difference")
         except:
             diff = 0
         
