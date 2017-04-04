@@ -307,17 +307,14 @@ cdef class BEDParser( GenericParser ):
         """Parse 5' and 3' position, then calculate frag length.
 
         """
-        print("DEBUG: Parsing line in BEDParser, looks like this: ", thisline)
         try:
             thisline = thisline.rstrip()
             thisfields = thisline.split( '\t' )
         except:  
-            print("DEBUG: could not split ", thisline)
             return 0
         
         try:
             diff = int( thisfields[ 2 ] ) - int( thisfields[ 1 ] )
-            print("DEBUG: split the line, got ", diff, " sized difference")
         except:
             diff = 0
         
