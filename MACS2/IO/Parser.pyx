@@ -66,7 +66,6 @@ cpdef guess_parser ( fhd, long buffer_size = 100000 ):
                   "BOWTIE",
                   )
 
-    print("DEBUG: guess_parser; is the fhd just a string?? ", fhd)
     for f in order_list:
         if f == 'BED':
             p = BEDParser( fhd, buffer_size = buffer_size )
@@ -166,22 +165,17 @@ cdef class GenericParser:
         
         if self.tag_size != -1:
             # if we have already calculated tag size (!= -1),  return it.
-            print("DEBUG: GenericParser returning tsize ", self.tag_size)
             return self.tag_size
         
         # try 10k times or retrieve 10 successfule alignments
         while n < 10 and m < 10000:
             m += 1
-            print("DEBUG: GenericParser sampling reads: ", m)
             thisline = self.fhd.readline()
             try:
                 thisline = thisline.decode()
-                print("DEBUG: decoded line as ", thisline)
             except AttributeError:
-                print("DEBUG: Decoded regular string not bytestring, mkay.")
                 pass
             this_taglength = self.__tlen_parse_line( thisline )
-            print("DEBUG: read tag length of ", this_taglength)
             if this_taglength > 0:
                 # this_taglength == 0 means this line doesn't contain
                 # successful alignment.
@@ -190,7 +184,6 @@ cdef class GenericParser:
         # done
         self.fhd.seek( 0 )
         self.tag_size = s // n
-        print("DEBUG: GenericParser estimate of tag size is ", s // n)
         return self.tag_size
 
     cdef __tlen_parse_line ( self, str thisline ):
@@ -214,6 +207,13 @@ cdef class GenericParser:
         i = 0
         m = 0
         for thisline in self.fhd:
+            try:
+                thisline = thisline.decode()
+                print("DEBUG: [build_fwtrack] decoded line as ", thisline)
+            except AttributeError:
+                print("DEBUG: [build_fwtrack] Decoded regular string not bytestring, mkay.")
+                pass
+        
             ( chromosome, fpos, strand ) = self.__fw_parse_line( thisline )
             i+=1
             if fpos < 0 or not chromosome:
@@ -336,8 +336,10 @@ cdef class BEDParser( GenericParser ):
             or thisline[ :7 ] == "browser" \
             or thisline[ 0 ] == "#":
              return ( "", -1, -1 )
-
+        
+        print("DEBUG: [BEDParser->__fw_parse_line]: thisline is ", thisline)
         thisfields = thisline.split( '\t' )
+        print("DEBUG: [BEDParser->__fw_parse_line]: thisfields[0] is ", thisfields[0])
         chromname = thisfields[ 0 ]
         #try:
         ##    chromname = chromname[ :chromname.rindex( ".fa" ) ]
@@ -345,13 +347,13 @@ cdef class BEDParser( GenericParser ):
         #    pass
 
         try:
-            if not strcmp(thisfields[ 5 ],"+"):
+            if not str(thisfields[ 5 ]) == "+":
                 return ( chromname,
-                         atoi( thisfields[ 1 ] ),
+                         int( thisfields[ 1 ] ),
                          0 )
-            elif not strcmp(thisfields[ 5 ], "-"):
+            elif not str(thisfields[ 5 ]) == "-":
                 return ( chromname,
-                         atoi( thisfields[ 2 ] ),
+                         int( thisfields[ 2 ] ),
                          1 )
             else:
                 raise StrandFormatError( thisline, thisfields[ 5 ] )
@@ -359,7 +361,7 @@ cdef class BEDParser( GenericParser ):
             # default pos strand if no strand
             # info can be found            
             return ( chromname,
-                     atoi( thisfields[ 1 ] ),
+                     int( thisfields[ 1 ] ),
                      0 )
 
 cdef class BEDPEParser(GenericParser):

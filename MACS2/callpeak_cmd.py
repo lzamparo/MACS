@@ -56,7 +56,6 @@ def run( args ):
     """
     # Parse options...
     options = opt_validate( args )
-    print("DEBUG: options.format is ", options.format)
     # end of parsing commandline options
     info = options.info
     warn = options.warn
@@ -397,7 +396,6 @@ def load_tag_files_options ( options ):
     options.info("#1 read treatment tags...")
     tp = options.parser(options.tfile[0], buffer_size=options.buffer_size)
     if not options.tsize:           # override tsize if user specified --tsize
-        print("DEBUG: finding tsize...")
         ttsize = tp.tsize()
         print("DEBUG: found tsize is ", ttsize)
         options.tsize = ttsize
