@@ -31,7 +31,9 @@ from cpython cimport bool
 
 import numpy as np
 cimport numpy as np
+cimport cython
 from numpy cimport uint32_t, uint64_t, int32_t
+
 
 cdef extern from "stdlib.h":
     ctypedef unsigned int size_t
@@ -328,7 +330,8 @@ cdef class BEDParser( GenericParser ):
     
     cdef __fw_parse_line ( self, str thisline ):
         #cdef list thisfields
-        cdef char * chromname
+        #cdef char * chromname
+        cdef cython.str chromname
         
         thisline = thisline.rstrip()
 

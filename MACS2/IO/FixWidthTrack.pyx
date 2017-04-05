@@ -231,7 +231,11 @@ cdef class FWTrack:
         """Return all the chromosome names stored in this track object.
         """
         l = self.__locations.keys()
-        l.sort()
+        try:
+            l.sort()
+        except AttributeError:
+            l = list(l)
+            l.sort()
         return l
 
     # cpdef length ( self ):
