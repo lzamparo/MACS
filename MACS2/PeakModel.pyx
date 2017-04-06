@@ -183,7 +183,10 @@ Summary of Peak Model:
         #self.plus_line = [0]*window_size
         #self.minus_line = [0]*window_size        
         self.info("start model_add_line...")
-        chroms = paired_peakpos.keys()
+        try:
+            chroms = paired_peakpos.keys()
+        except TypeError:
+            chroms = list(paired_peakpos.keys())
         
         for i in range(len(chroms)):
             paired_peakpos_chrom = paired_peakpos[chroms[i]]

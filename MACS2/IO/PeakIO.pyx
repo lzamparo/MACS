@@ -201,7 +201,12 @@ cdef class PeakIO:
         peaks = self.peaks
         new_peaks = {}
         chrs = peaks.keys()
-        chrs.sort()
+        try:
+            chrs.sort()
+        except AttributeError:
+            chrs = list(chrs)
+            chrs.sort()
+            
         if fc_up:
             for chrom in chrs:
                 new_peaks[chrom]=[p for p in peaks[chrom] if p['fc'] >= fc_low and p['fc']<fc_up]
