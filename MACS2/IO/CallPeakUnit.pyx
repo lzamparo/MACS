@@ -304,8 +304,8 @@ cdef class CallerFromAlignments:
         # temporary data buffer
         str chrom                        # name of current chromosome
         list chr_pos_treat_ctrl          # temporary [position, treat_pileup, ctrl_pileup] for a given chromosome
-        char * bedGraph_treat_filename
-        char * bedGraph_control_filename
+        str bedGraph_treat_filename
+        str bedGraph_control_filename
         FILE * bedGraph_treat_f
         FILE * bedGraph_ctrl_f
         #object bedGraph_treat            # file handler to write ChIP pileup
@@ -397,10 +397,10 @@ cdef class CallerFromAlignments:
         self.bedGraph_filename_prefix =  bedGraph_filename_prefix
         #tmp_bytes = bedGraph_treat_filename.encode('UTF-8')
         #print bedGraph_treat_filename, tmp_bytes
-        self.bedGraph_treat_filename = <bytes>bedGraph_treat_filename
+        self.bedGraph_treat_filename = bedGraph_treat_filename
         #tmp_bytes = bedGraph_control_filename.encode('UTF-8')
         #print bedGraph_control_filename, tmp_bytes
-        self.bedGraph_control_filename = <bytes>bedGraph_control_filename
+        self.bedGraph_control_filename = bedGraph_control_filename
 
         if not self.ctrl_d_s or not self.ctrl_scaling_factor_s:
             self.no_lambda_flag = True
@@ -900,8 +900,12 @@ cdef class CallerFromAlignments:
 
         # prepare bedGraph file
         if self.save_bedGraph:
-            self.bedGraph_treat_f = fopen( self.bedGraph_treat_filename, "w" )
-            self.bedGraph_ctrl_f = fopen( self.bedGraph_control_filename, "w" )
+            try:
+                self.bedGraph_treat_f = fopen( self.bedGraph_treat_filename, "w" )
+                self.bedGraph_ctrl_f = fopen( self.bedGraph_control_filename, "w" )
+            except TypeError:
+                self.bedGraph_treat_f = fopen(self.bedGraph_treat_filename.encode(),"w")
+                self.bedGraph_ctrl_f = fopen(self.bedGraph_control_filename.encode(),"w")
 
             logging.info ("#3 In the peak calling step, the following will be performed simultaneously:")
             logging.info ("#3   Write bedGraph files for treatment pileup (after scaling if necessary)... %s" % self.bedGraph_filename_prefix + "_treat_pileup.bdg")

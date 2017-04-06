@@ -374,7 +374,7 @@ Summary of Peak Model:
                     im_prev = im # only the first index is recorded
                 if float(pn)/mn < 2 and float(pn)/mn > 0.5: # number tags in plus and minus peak region are comparable...
                     if pp < mp:
-                        pair_centers.append((pp+mp)/2)
+                        pair_centers.append((pp+mp) // 2)
                         #self.debug ( "distance: %d, minus: %d, plus: %d" % (mp-pp,mp,pp))
                 im += 1
         return pair_centers
