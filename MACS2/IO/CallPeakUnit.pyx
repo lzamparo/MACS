@@ -1514,7 +1514,11 @@ cdef class CallerFromAlignments:
             self.save_bedGraph = False
 
         # now combine lvl1 and lvl2 peaks
-        chrs = lvl1peaks.get_chr_names()
+        try:
+            chrs = lvl1peaks.get_chr_names()
+        except TypeError:
+            chrs = list(lvl1peaks.get_chr_names())
+            
         broadpeaks = BroadPeakIO()
         # use lvl2_peaks as linking regions between lvl1_peaks
         for chrom in chrs:

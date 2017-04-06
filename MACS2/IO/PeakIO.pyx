@@ -312,7 +312,11 @@ cdef class PeakIO:
         generalization of to_summits_bed and write_to_summit_bed
         """
         chrs = self.peaks.keys()
-        chrs.sort()
+        try:
+            chrs.sort()
+        except AttributeError:
+            chrs = list(chrs)
+            chrs.sort()
         n_peak = 0
         try: peakprefix = name_prefix % name
         except: peakprefix = name_prefix
