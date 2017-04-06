@@ -227,7 +227,7 @@ Summary of Peak Model:
         tmp_cor_alternative_d = ycorr[ i_l_max ]
         tmp_alternative_d = xcorr[ i_l_max ]
         cor_alternative_d =  tmp_cor_alternative_d [ tmp_alternative_d > 0 ]
-        self.alternative_d = map( int, tmp_alternative_d[ tmp_alternative_d > 0 ] )
+        self.alternative_d = [int(e) for e in tmp_alternative_d[ tmp_alternative_d > 0 ]]
         
         # best cross-correlation point
         self.d = xcorr[ np.where( ycorr== max( cor_alternative_d ) )[0][0] ]

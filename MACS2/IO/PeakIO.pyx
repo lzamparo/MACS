@@ -241,7 +241,11 @@ cdef class PeakIO:
 
         peaks = self.peaks
         chrs = peaks.keys()
-        chrs.sort()
+        try:
+            chrs.sort()
+        except AttributeError:
+            chrs = list(chrs)
+            chrs.sort()
         n_peak = 0
         for chrom in chrs:
             for end, group in groupby(peaks[chrom], key=itemgetter("end")):
