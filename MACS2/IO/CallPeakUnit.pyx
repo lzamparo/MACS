@@ -1484,9 +1484,12 @@ cdef class CallerFromAlignments:
 
         # prepare bedGraph file
         if self.save_bedGraph:
-
-            self.bedGraph_treat_f = fopen( self.bedGraph_treat_filename, "w" )
-            self.bedGraph_ctrl_f = fopen( self.bedGraph_control_filename, "w" )
+            try:
+                self.bedGraph_treat_f = fopen( self.bedGraph_treat_filename, "w" )
+                self.bedGraph_ctrl_f = fopen( self.bedGraph_control_filename, "w" )
+            except TypeError:
+                self.bedGraph_treat_f = fopen(self.bedGraph_treat_filename.encode(), "w")
+                self.bedGraph_ctrl_f = fopen(self.bedGraph_control_filename.encode(), "w")
             logging.info ("#3 In the peak calling step, the following will be performed simultaneously:")
             logging.info ("#3   Write bedGraph files for treatment pileup (after scaling if necessary)... %s" % self.bedGraph_filename_prefix + "_treat_pileup.bdg")
             logging.info ("#3   Write bedGraph files for control lambda (after scaling if necessary)... %s" % self.bedGraph_filename_prefix + "_control_lambda.bdg")

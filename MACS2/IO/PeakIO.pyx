@@ -471,7 +471,11 @@ cdef class PeakIO:
         cdef long s
 
         chrs = self.peaks.keys()
-        chrs.sort()
+        try:
+            chrs.sort()
+        except AttributeError:
+            chrs = list(chrs)
+            chrs.sort()
         n_peak = 0
         write = fhd.write
         try: peakprefix = name_prefix % name
