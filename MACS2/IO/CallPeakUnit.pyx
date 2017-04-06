@@ -1525,7 +1525,10 @@ cdef class CallerFromAlignments:
             tmp_n = 0
             lvl1peakschrom = lvl1peaks.get_data_from_chrom(chrom)
             lvl2peakschrom = lvl2peaks.get_data_from_chrom(chrom)
-            lvl1peakschrom_next = iter(lvl1peakschrom).next
+            try:
+                lvl1peakschrom_next = iter(lvl1peakschrom).next
+            except AttributeError:
+                lvl1peakschrom_next = iter(lvl1peakschrom).__next__
             tmppeakset = []             # to temporarily store lvl1 region inside a lvl2 region
             # our assumption is lvl1 regions should be included in lvl2 regions
             try:

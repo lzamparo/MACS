@@ -103,8 +103,11 @@ cpdef pileup_and_write( trackI,
             five_shift = d/2
             three_shift = d - five_shift
     # end of the block
-
-    chroms = chrlengths.keys()
+    
+    try:
+        chroms = chrlengths.keys()
+    except TypeError:
+        chroms = list(chrlengths.keys())
     n_chroms = len( chroms )
     _data = < PosVal ** > malloc( n_chroms * sizeof( PosVal * ) )
     l_data = < long * > malloc( n_chroms * sizeof( long ) )

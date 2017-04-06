@@ -899,7 +899,11 @@ cdef class BAMParser( GenericParser ):
         for x in range( nc ):
             # read each chromosome name
             nlength = unpack( '<i', fread( 4 ) )[ 0 ]
-            refname = fread( nlength )[ :-1 ]
+            try:
+                refname = fread( nlength )[ :-1 ]
+            except TypeError:
+                b_refname = fread( nlength )[ :-1 ]
+                refname = b_refname.encode()
             references.append( refname )
             # don't jump over chromosome size
             # we can use it to avoid falling of chrom ends during peak calling
