@@ -211,9 +211,7 @@ cdef class GenericParser:
         for thisline in self.fhd:
             try:
                 thisline = thisline.decode()
-                print("DEBUG: [build_fwtrack] decoded line as ", thisline)
             except AttributeError:
-                print("DEBUG: [build_fwtrack] Decoded regular string not bytestring, mkay.")
                 pass
         
             ( chromosome, fpos, strand ) = self.__fw_parse_line( thisline )
@@ -340,9 +338,7 @@ cdef class BEDParser( GenericParser ):
             or thisline[ 0 ] == "#":
              return ( "", -1, -1 )
         
-        print("DEBUG: [BEDParser->__fw_parse_line]: thisline is ", thisline)
         thisfields = thisline.split( '\t' )
-        print("DEBUG: [BEDParser->__fw_parse_line]: thisfields[0] is ", thisfields[0])
         chromname = thisfields[ 0 ]
         #try:
         ##    chromname = chromname[ :chromname.rindex( ".fa" ) ]
